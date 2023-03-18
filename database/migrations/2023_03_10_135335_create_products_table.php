@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('product_code');
             $table->string('product_name');
+            $table->string('slug');
             $table->string('product_type');
             $table->string('product_color')->nullable();
             $table->string('product_batch');
             $table->integer('product_price');
-            $table->char('product_size');
+            // $table->char('product_size');
             $table->text('product_desc')->nullable();
             $table->integer('product_stock')->nullable();
             $table->boolean('product_status');

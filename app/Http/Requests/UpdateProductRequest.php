@@ -28,7 +28,7 @@ class UpdateProductRequest extends FormRequest
             'product_color' => 'string|max:10|nullable',
             'product_batch' => 'required|string|max:255',
             'product_price' => 'required|integer|numeric',
-            'product_size' => 'required|max:3',
+            // 'product_size' => 'required|max:3',
             'product_desc' => 'nullable|string',
             'product_stock' => 'required|integer|numeric'
         ];
@@ -42,7 +42,7 @@ class UpdateProductRequest extends FormRequest
             'product_type.required' => 'Tipe Produk harus Diisi!',
             'product_batch.required' => 'Batch/Series Produk Harus Diisi',
             'product_price.required' => 'Harga Produk harus Diisi!',
-            'product_size.required' => 'Ukuran Produk harus Diisi',
+            // 'product_size.required' => 'Ukuran Produk harus Diisi',
             'product_stock.required' => 'Stok Produk harus Diisi!',
         ];
     }

@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Support\Facades\Validator;
+// use Illuminate\Database\Eloquent\Collection;
+// use Illuminate\Support\LazyCollection;
 
 class ProductController extends Controller
 {
@@ -15,11 +17,14 @@ class ProductController extends Controller
     public function index(Product $product)
     {
         //
-        return view('product', [
+
+        return view('admin.product.index', [
             'title' => 'Produk List',
             'products' => $product->productAdminIndex(),
         ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +32,7 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('store', [
+        return view('admin.product.create', [
             'title' => 'Tambah Data Barang',
         ]);
     }
@@ -38,10 +43,10 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request, Product $product)
     {
         //
-        $validator = Validator::make($request->all(), $request->rules());
+        $validator = Validator::make($request->all(), $request->rules(), $request->messages());
 
         if ($validator->stopOnFirstFailure()->fails()) {
-            return redirect('/product/create')->withErrors($validator)->withInput();
+            return redirect()->route('product.create')->withErrors($validator)->withInput();
         }
         $validated = $validator->validated();
         // Status 
@@ -58,7 +63,7 @@ class ProductController extends Controller
         $product->create($validated);
 
         // $validated = $validated->safe()->all();
-        return redirect('/product')->with([
+        return redirect()->route('product.index')->with([
             'success' => 'Data Product Berhasil di Input',
         ]);
     }
@@ -68,7 +73,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('show', [
+        return view('admin.product.show', [
             'product' => $product,
         ]);
     }
@@ -80,7 +85,7 @@ class ProductController extends Controller
     {
         //
         // dd($productStore->productAdminEdit($id));
-        return view('edit', [
+        return view('admin.product.edit', [
             'title' => 'Edit Produk',
             'product' => $product,
         ]);
@@ -89,10 +94,10 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, $id)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         //
-        $validator = Validator::make($request->all(), $request->rules());
+        $validator = Validator::make($request->all(), $request->rules(), $request->messages());
 
         // if ($validator->stopOnFirstFailure()->fails()) {
         //     return redirect()->route('product.edit')->withErrors($validator)->withInput();
@@ -112,11 +117,9 @@ class ProductController extends Controller
         }
 
 
-        $product = Product::findOrFail($id);
-
         $product->update($validated);
 
-        return redirect('/product')->with([
+        return redirect()->route('product.index')->with([
             'success' => 'Data Berhasil diubah!'
         ]);
     }

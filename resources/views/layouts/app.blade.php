@@ -6,15 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Faith') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script>
+        localStorage.theme = 'light';
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia(
+                '(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
 
+
+    {{-- <link rel="stylesheet" href="build/assets/app-d9af4a04.css"> --}}
+
+    {{-- <script src="build/assets/app-2db63b96.js"></script> --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-sans antialiased">
