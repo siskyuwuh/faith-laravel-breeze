@@ -17,13 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
+Route::get('/{category}/p/{item}', [CatalogController::class, 'detail'])->name('detail.product');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -31,8 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
-Route::get('/catalog/detail/{item}', [CatalogController::class, 'detail'])->name('detail.product');
 
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 

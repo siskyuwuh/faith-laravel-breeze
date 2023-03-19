@@ -11,14 +11,17 @@ class CatalogController extends Controller
     public function index(Item $item)
     {
         return view('main.catalog', [
-            'items' => $item->select('product_name', 'product_price', 'slug')->latest()->paginate(12),
+            'items' => $item->select('product_name', 'product_type', 'product_price', 'slug')->latest()->paginate(12),
         ]);
     }
 
-    public function detail(Item $item)
+    public function detail($category, Item $item)
     {
-        return view('main.detail', [
-            'item' => $item,
-        ]);
+        if ($category === $item['product_type']) {
+            // dd("nice");
+            return view('main.detail', [
+                'item' => $item,
+            ]);
+        };
     }
 }
