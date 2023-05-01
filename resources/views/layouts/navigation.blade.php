@@ -74,6 +74,11 @@
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+                            @can('Customer-User')
+                                <x-dropdown-link :href="route('cart')">
+                                    {{ __('My Cart') }}
+                                </x-dropdown-link>
+                            @endcan
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -115,8 +120,8 @@
                 <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                     {{ __('Home') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                    {{ __('Home') }}
+                <x-responsive-nav-link :href="route('catalog')" :active="request()->routeIs('catalog')">
+                    {{ __('Store') }}
                 </x-responsive-nav-link>
             @endcannot
             @can('Admin-User')
@@ -160,6 +165,11 @@
                     <x-responsive-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
+                    @can('Customer-User')
+                        <x-responsive-nav-link :href="route('cart')">
+                            {{ __('My Cart') }}
+                        </x-responsive-nav-link>
+                    @endcan
 
                     <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">

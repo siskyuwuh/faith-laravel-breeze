@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="pt-6 pb-4 bg-white">
+    <div class="pt-6 pb-0 bg-white">
         <div class="mx-auto max-w-7xl h-10 max-h-10 sm:px-6 lg:px-10">
             <a href="{{ route('product.index') }}">
                 {{-- <button type="button"
@@ -28,63 +28,84 @@
     </div>
     <div class="bg-white">
 
-        <div class="py-8 px-4 mx-auto max-w-2xl lg:py-14">
+        <div class="py-8 pt-2 pb-4 mx-auto max-w-2xl lg:pb-14 lg:pt-7">
             <h2 class="mb-4 text-xl font-bold text-gray-900">Buat Data Produk</h2>
-            <form action="{{ route('product.store') }}" method="POST">
+            <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('POST')
                 <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
-                    <div class="sm:col-span-2">
-                        <label for="product_name" class="block mb-2 text-sm font-medium text-gray-900">Nama
-                            Produk</label>
-                        <input type="text" name="product_name" id="product_name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                            value="" required>
-                    </div>
-                    <div class="w-full">
-                        <label for="product_code" class="block mb-2 text-sm font-medium text-gray-900">Kode
-                            Produk</label>
-                        <input type="text" name="product_code" id="product_code"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                            value="" required>
-                    </div>
 
-                    <div>
-                        <label for="product_type" class="block mb-2 text-sm font-medium text-gray-900">Kategori</label>
-                        <select id="product_type" name="product_type"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                            <option selected value="T-Shirt">T-Shirt</option>
-                            <option value="Sukajan">Sukajan</option>
-                            <option value="Crowneck">Crowneck</option>
-                            <option value="Hoodie">Hoodie Jacket</option>
-                            <option value="Varsity">Varsity Jacket</option>
-                        </select>
-                    </div>
 
-                    <div class="w-full">
-                        <label for="product_color" class="block mb-2 text-sm font-medium text-gray-900">Warna
-                            Produk</label>
-                        <input type="text" name="product_color" id="product_color"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                            value="">
-                    </div>
+                    <div class="sm:col-span-2 w-full">
 
-                    <div>
-                        <label for="product_batch" class="block mb-2 text-sm font-medium text-gray-900">Kategori</label>
-                        <select id="product_batch" name="product_batch"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                            <option selected value="Batch-1">Batch-1</option>
-                            <option value="Batch-2">Batch-2</option>
-                            <option value="Batch-3">Batch-3</option>
-                        </select>
-                    </div>
-                    <div class="w-full">
-                        <label for="product_price" class="block mb-2 text-sm font-medium text-gray-900">Harga
-                            Barang</label>
-                        <input type="number" name="product_price" id="product_price"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                            value="" placeholder="" required>
-                    </div>
-                    {{-- <div class="w-full">
+                        <div class="col-span-full">
+
+
+                            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                for="file_input">Upload file</label>
+                            <input
+                                class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                                aria-describedby="file_input_help" id="file_input" name="image" type="file">
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG
+                                or GIF (MAX. 800x400px).</p>
+
+
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label for="product_name" class="block mb-2 text-sm font-medium text-gray-900">Nama
+                                Produk</label>
+                            <input type="text" name="product_name" id="product_name"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                value="" required>
+                        </div>
+                        <div class="w-full">
+                            <label for="product_code" class="block mb-2 text-sm font-medium text-gray-900">Kode
+                                Produk</label>
+                            <input type="text" name="product_code" id="product_code"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                value="" required>
+                        </div>
+
+                        <div>
+                            <label for="product_type"
+                                class="block mb-2 text-sm font-medium text-gray-900">Kategori</label>
+                            <select id="product_type" name="product_type"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                                <option selected value="T-Shirt">T-Shirt</option>
+                                <option value="Sukajan">Sukajan</option>
+                                <option value="Crowneck">Crowneck</option>
+                                <option value="Hoodie">Hoodie Jacket</option>
+                                <option value="Varsity">Varsity Jacket</option>
+                            </select>
+                        </div>
+
+                        <div class="w-full">
+                            <label for="product_color" class="block mb-2 text-sm font-medium text-gray-900">Warna
+                                Produk</label>
+                            <input type="text" name="product_color" id="product_color"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                value="">
+                        </div>
+
+                        <div>
+                            <label for="product_batch"
+                                class="block mb-2 text-sm font-medium text-gray-900">Kategori</label>
+                            <select id="product_batch" name="product_batch"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+                                <option selected value="Batch-1">Batch-1</option>
+                                <option value="Batch-2">Batch-2</option>
+                                <option value="Batch-3">Batch-3</option>
+                            </select>
+                        </div>
+                        <div class="w-full">
+                            <label for="product_price" class="block mb-2 text-sm font-medium text-gray-900">Harga
+                                Barang</label>
+                            <input type="number" name="product_price" id="product_price"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                value="" placeholder="" required>
+                        </div>
+                        {{-- <div class="w-full">
                                     <label class="block mb-2 text-sm font-medium text-gray-900">Ukuran Produk</label>
                                     <div class="flex items-center mb-4">
                                         <input id="product_size_s" type="radio" name="product_size" value="S"
@@ -128,28 +149,28 @@
                                     </div>
                                 </div> --}}
 
-                    <div>
-                        <label for="product_stock" class="block mb-2 text-sm font-medium text-gray-900">Stok
-                            Barang</label>
-                        <input type="number" name="product_stock" id="product_stock"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                            value="" placeholder="" required>
+                        <div>
+                            <label for="product_stock" class="block mb-2 text-sm font-medium text-gray-900">Stok
+                                Barang</label>
+                            <input type="number" name="product_stock" id="product_stock"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                                value="" placeholder="" required>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label for="product_desc" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi
+                                Produk</label>
+                            <textarea id="product_desc" rows="8"
+                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
+                                placeholder="Write a product product_desc here..."></textarea>
+                        </div>
                     </div>
-                    <div class="sm:col-span-2">
-                        <label for="product_desc" class="block mb-2 text-sm font-medium text-gray-900">Deskripsi
-                            Produk</label>
-                        <textarea id="product_desc" rows="8"
-                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
-                            placeholder="Write a product product_desc here..."></textarea>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <button type="submit"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        Kirim
-                    </button>
+                    <div class="flex items-center space-x-4">
+                        <button type="submit"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                            Kirim
+                        </button>
 
-                </div>
+                    </div>
             </form>
         </div>
 

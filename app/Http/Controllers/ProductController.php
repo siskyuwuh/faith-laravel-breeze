@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 // use Illuminate\Database\Eloquent\Collection;
 // use Illuminate\Support\LazyCollection;
 
@@ -45,10 +48,22 @@ class ProductController extends Controller
         //
         $validator = Validator::make($request->all(), $request->rules(), $request->messages());
 
+
+
+
         if ($validator->stopOnFirstFailure()->fails()) {
-            return redirect()->route('product.create')->withErrors($validator)->withInput();
+            return redirect()->back()->withErrors($validator)->withInput();
         }
+
         $validated = $validator->validated();
+
+        $image = $request->file('image');
+        // dd($validated['product_name']);
+        $imageName = time() . "_" . $image->hashName();
+
+        $image->storeAs('public/images/product/' . Str::slug($validated['product_batch']) . '/', $imageName);
+
+        $validated['image'] = $imageName;
         // Status 
         // 1 = Safe
         // 0 = Empty
@@ -59,6 +74,7 @@ class ProductController extends Controller
 
             $validated['product_status'] = 0;
         }
+
 
         $product->create($validated);
 
@@ -99,11 +115,12 @@ class ProductController extends Controller
         //
         $validator = Validator::make($request->all(), $request->rules(), $request->messages());
 
-        // if ($validator->stopOnFirstFailure()->fails()) {
-        //     return redirect()->route('product.edit')->withErrors($validator)->withInput();
-        // }
+        if ($validator->stopOnFirstFailure()->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $validated = $validator->validated();
+
 
         // Status 
         // 1 = Safe
@@ -116,12 +133,29 @@ class ProductController extends Controller
             $validated['product_status'] = 0;
         }
 
+        if ($request->hasFile('image')) {
 
-        $product->update($validated);
+            $image = $request->file('image');
+            // dd($validated['product_name']);
+            $imageName = time() . "_" . $image->hashName();
 
-        return redirect()->route('product.index')->with([
-            'success' => 'Data Berhasil diubah!'
-        ]);
+            $image->storeAs('public/images/product/' . Str::slug($validated['product_batch']) . '/', $imageName);
+
+            Storage::delete('public/images/product/' . Str::slug($product->product_batch) . '/' . basename($product->image));
+
+            $validated['image'] = $imageName;
+
+
+            $product->update($validated);
+        } else {
+
+            $product->update($validated);
+        };
+
+        return redirect()->route('product.index')->with(
+            'success',
+            'Data Berhasil diubah!'
+        );
     }
 
     /**

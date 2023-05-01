@@ -20,6 +20,16 @@
             <h2 class="mb-4 text-xl font-bold text-gray-900">Detail Produk</h2>
 
             <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+
+                <div class="col-span-full">
+
+
+                    <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Picture :</label>
+                    <img class="block max-h-44 p-0 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                        src="{{ asset('/storage/images/product/' . $product->product_batch . '/' . $product->image) }}">
+
+                </div>
+
                 <div class="sm:col-span-2">
                     <label for="product_name" class="block mb-2 text-sm font-medium text-gray-900">Nama
                         Produk</label>

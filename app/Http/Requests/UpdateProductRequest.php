@@ -26,7 +26,7 @@ class UpdateProductRequest extends FormRequest
             'product_name' => 'required|string|max:255',
             'product_type' => 'required|string',
             'product_color' => 'string|max:10|nullable',
-            'product_batch' => 'required|string|max:255',
+            // 'product_batch' => 'required|string|max:255',
             'product_price' => 'required|integer|numeric',
             // 'product_size' => 'required|max:3',
             'product_desc' => 'nullable|string',

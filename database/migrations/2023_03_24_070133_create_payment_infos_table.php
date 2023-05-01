@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Order;
 use App\Models\User;
-use App\Models\Product;
 use App\Models\Shipper;
 
 return new class extends Migration
@@ -14,14 +14,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->uuid('id');
+        Schema::create('payment_infos', function (Blueprint $table) {
+            $table->id();
             $table->foreignIdFor(User::class);
-            // $table->foreignIdFor(ShippingInfo::class);
-            $table->foreignIdFor(Shipper::class);
-            // $table->integer('quantity');
-            $table->integer('price_total');
-            $table->integer('status');
+            $table->foreignIdFor(Order::class);
+            // $table->foreignIdFor(Shipper::class);
+            $table->bigInteger('final_price');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('payment_infos');
     }
 };

@@ -4,8 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use App\Models\User;
-use App\Models\Product;
-use App\Models\Shipper;
 
 return new class extends Migration
 {
@@ -14,14 +12,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
-            $table->uuid('id');
+        Schema::create('shipping_infos', function (Blueprint $table) {
+            $table->id();
             $table->foreignIdFor(User::class);
-            // $table->foreignIdFor(ShippingInfo::class);
-            $table->foreignIdFor(Shipper::class);
-            // $table->integer('quantity');
-            $table->integer('price_total');
-            $table->integer('status');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('email');
+            $table->string('country');
+            $table->string('address');
+            $table->string('city');
+            $table->string('region');
+            $table->string('postal_code');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('shipping_infos');
     }
 };

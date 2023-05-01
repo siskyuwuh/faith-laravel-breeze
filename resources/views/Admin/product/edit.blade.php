@@ -21,10 +21,35 @@
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-14">
             <h2 class="mb-4 text-xl font-bold text-gray-900">Update product</h2>
             {{-- @foreach ($products as $product) --}}
-            <form action="{{ route('product.update', $product->id) }}" method="POST">
+            <form action="{{ route('product.update', $product->slug) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+
+
+                    <div class="col-span-full">
+
+
+                        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Picture Before
+                            :</label>
+                        <img class="block max-h-44 p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                            src="{{ asset('/storage/images/product/' . $product->product_batch . '/' . $product->image) }}">
+
+                    </div>
+
+                    <div class="col-span-full">
+
+
+                        <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">Upload file</label>
+                        <input
+                            class="block w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                            aria-describedby="file_input_help" id="file_input" name="image" type="file"
+                            value="{{ asset('/storage/images/product/' . $product->product_batch . '/' . $product->image) }}">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG
+                            or GIF (MAX. 800x400px).</p>
+
+
+                    </div>
 
                     {{-- Nama Produk --}}
 
@@ -58,6 +83,7 @@
                             <option value="Hoodie">Hoodie Jacket</option>
                             <option value="Varsity">Varsity Jacket</option>
                         </select>
+                        <p class=" text-red-500 text-sm">*pastikan tipe barang nya sama seperti sebelumnya</p>
                     </div>
 
                     {{-- Warna Produk --}}
@@ -75,10 +101,9 @@
                     <div>
                         <label for="product_batch" class="block mb-2 text-sm font-medium text-gray-900">Kategori</label>
                         <select id="product_batch" name="product_batch"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
-                            <option value="Batch-1">Batch-1</option>
-                            <option value="Batch-2">Batch-2</option>
-                            <option value="Batch-3">Batch-3</option>
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 disabled:bg-gray-100"
+                            disabled>
+                            <option value="{{ $product->product_batch }}">{{ $product->product_batch }}</option>
                         </select>
                     </div>
 

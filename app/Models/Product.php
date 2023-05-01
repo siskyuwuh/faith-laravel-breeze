@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -38,6 +39,21 @@ class Product extends Model
         });
     }
 
+    // public function setImageAttribute($value)
+    // {
+    //     $this->attributes['image']
+    // }
+
+    // protected 
+
+    // public function image(): Attribute
+    // {
+    // $batch = $this->attributes['product_batch'];
+    //     return Attribute::make(
+    //         get: fn (string $image, array $attributes) => asset('/storage/images/product/' . Str::slug($attributes['product_batch']) . '/' . $attributes['image'])
+    //     );
+    // }
+
     /**
      * Get the route key for the model.
      */
@@ -46,13 +62,15 @@ class Product extends Model
         return 'slug';
     }
 
-    public function orders(): HasMany
+    // Product(1) to OrderDetail(many) [1 : M]
+
+    public function orderDetail(): HasMany
     {
-        return $this->hasMany(Order::class, 'foreign_key');
+        return $this->hasMany(OrderDetails::class);
     }
 
     public function productAdminIndex()
     {
-        return Product::select('slug', 'product_code', 'product_name', 'product_type', 'product_batch', 'product_price', 'product_stock', 'product_status')->latest()->paginate(12);
+        return Product::select('slug', 'product_code', 'product_name', 'product_type', 'product_batch', 'product_price', 'product_stock', 'product_status')->latest()->paginate(10);
     }
 }

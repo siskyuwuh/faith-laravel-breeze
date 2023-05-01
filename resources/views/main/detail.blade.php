@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="pt-6 pb-4 bg-white">
+    {{-- <div class="pt-6 pb-4 bg-white">
         <div class="mx-auto max-w-7xl h-10 max-h-10 sm:px-6 lg:px-10">
             <a href="{{ route('catalog') }}">
                 <button type="button"
@@ -14,30 +14,10 @@
                 </button>
             </a>
         </div>
-    </div>
-    <!--
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    theme: {
-      extend: {
-        gridTemplateRows: {
-          '[auto,auto,1fr]': 'auto auto 1fr',
-        },
-      },
-    },
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
--->
+    </div> --}}
+
     <div class="bg-white">
-        <div class="pt-6">
+        <div class="mx-auto">
             {{-- <nav aria-label="Breadcrumb">
                 <ol role="list"
                     class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -70,23 +50,25 @@
             </nav> --}}
 
             <!-- Image gallery -->
-            <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
-                <div class="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
+            <div
+                class="border-x-4 border-gray-900 py-8 mx-auto max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+                <div class="aspect-w-3 aspect-h-4 hidden overflow-hidden border-2 border-gray-900 lg:block">
                     <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg"
                         alt="Two each of gray, white, and black shirts laying flat."
                         class="h-full w-full object-cover object-center">
                 </div>
                 <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-                    <div class="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
+                    <div class="aspect-w-3 aspect-h-2 overflow-hidden border-2 border-gray-900">
                         <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg"
                             alt="Model wearing plain black basic tee." class="h-full w-full object-cover object-center">
                     </div>
-                    <div class="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
+                    <div class="aspect-w-3 aspect-h-2 overflow-hidden border-2 border-gray-900">
                         <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"
                             alt="Model wearing plain gray basic tee." class="h-full w-full object-cover object-center">
                     </div>
                 </div>
-                <div class="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
+                <div
+                    class="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:border-2 border-gray-900 lg:aspect-w-3 lg:aspect-h-4">
                     <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg"
                         alt="Model wearing plain white basic tee." class="h-full w-full object-cover object-center">
                 </div>
@@ -94,7 +76,7 @@
 
             <!-- Product info -->
             <div
-                class="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
+                class="border-x-4 border-t-4 border-gray-900 mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
                 <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
                     <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{ $item->product_name }}
                     </h1>
@@ -152,22 +134,25 @@
                         </div>
                     </div>
 
-                    <form class="mt-10">
+                    <form class="mt-10" action="{{ route('add.to.cart', [$item->slug]) }}" method="post">
+                        @csrf
+                        @method('POST')
+                        {{-- <input type="hidden" name="slug" value="{{ $item->slug }}"> --}}
                         <!-- Colors -->
                         <div>
                             <h3 class="text-sm font-medium text-gray-900">Color</h3>
 
-                            <fieldset class="mt-4">
+                            <fieldset class="mt-4 font-mono">
                                 <legend class="sr-only">Choose a color</legend>
                                 <div class="flex items-center space-x-3">
                                     <ul class="grid w-full gap-6 md:grid-cols-2">
                                         <li>
-                                            <input type="radio" id="hosting-small" name="hosting"
-                                                value="hosting-small" class="hidden peer" required>
-                                            <label for="hosting-small"
-                                                class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border-2 border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                                            <input type="radio" id="color-black" name="color" value="hitam"
+                                                class="hidden peer" checked required>
+                                            <label for="color-black"
+                                                class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border-2 border-gray-200 cursor-pointer peer-checked:border-gray-900 peer-checked:bg-gray-900 peer-checked:text-white hover:border-gray-900  duration-200 hover:duration-200">
                                                 <div class="flex justify-center w-full">
-                                                    <div class="font-semibold">Merah</div>
+                                                    <div class="font-semibold">Hitam</div>
                                                     {{-- <div class="w-full">Good for small websites</div> --}}
                                                 </div>
                                                 {{-- <svg aria-hidden="true" class="w-6 h-6 ml-3" fill="currentColor"
@@ -188,45 +173,61 @@
                         <div class="mt-10">
                             <div class="flex items-center justify-between">
                                 <h3 class="text-sm font-medium text-gray-900">Size</h3>
-                                <a href="#"
+                                {{-- <a href="#"
                                     class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size
-                                    guide</a>
+                                    guide</a> --}}
                             </div>
 
-                            <fieldset class="mt-4">
+                            <fieldset class="mt-4 font-mono">
                                 <legend class="sr-only">Choose a size</legend>
 
-                                <ul class="grid w-full grid-cols-5 gap-4 sm:grid-cols-5 lg:grid-cols-5">
+                                {{-- <ul class="grid w-full grid-cols-5 gap-4 sm:grid-cols-5 lg:grid-cols-5">
                                     <li>
-                                        <input type="radio" id="size-small" name="size" value="size-small"
+                                        <input type="radio" id="size-small" name="size" value="small"
                                             class="hidden peer" required>
                                         <label for="size-small"
-                                            class="inline-flex items-center justify-between w-full py-2.5 px-1.5 text-gray-900 bg-white border-2 border-gray-200 cursor-pointer peer-checked:bg-gray-900 peer-checked:border-gray-900 peer-checked:text-white hover:border-gray-900">
+                                            class="inline-flex items-center justify-between w-full py-2.5 px-1.5 text-gray-500 bg-white border-2 border-gray-200 cursor-pointer peer-checked:bg-gray-900 peer-checked:border-gray-900 peer-checked:text-white hover:border-gray-900">
                                             <div class="flex justify-center w-full">
                                                 <div class="font-extrabold font-mono">S</div>
-                                                {{-- <div class="w-full">Good for small websites</div> --}}
+
                                             </div>
-                                            {{-- <svg aria-hidden="true" class="w-6 h-6 ml-3" fill="currentColor"
-                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg> --}}
                                         </label>
                                     </li>
-                                </ul>
+                                    <li>
+                                        <input type="radio" id="size-medium" name="size" value="M"
+                                            class="hidden peer" required>
+                                        <label for="size-medium"
+                                            class="inline-flex items-center justify-between w-full py-2.5 px-1.5 text-gray-500 bg-white border-2 border-gray-200 cursor-pointer peer-checked:bg-gray-900 peer-checked:border-gray-900 peer-checked:text-white hover:border-gray-900">
+                                            <div class="flex justify-center w-full">
+                                                <div class="font-extrabold font-mono">M</div>
+
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="size-large" name="size" value="L"
+                                            class="hidden peer" required>
+                                        <label for="size-large"
+                                            class="inline-flex items-center justify-between w-full py-2.5 px-1.5 text-gray-500 bg-white border-2 border-gray-200 cursor-pointer peer-checked:bg-gray-900 peer-checked:border-gray-900 peer-checked:text-white hover:border-gray-900">
+                                            <div class="flex justify-center w-full">
+                                                <div class="font-extrabold font-mono">L</div>
+
+                                            </div>
+                                        </label>
+                                    </li>
+                                </ul> --}}
+                                <input type="text" name="size" id="size" required maxlength="3"
+                                    minlength="1">
 
                             </fieldset>
                         </div>
 
                         <button type="submit"
-                            class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add
-                            to bag</button>
+                            class="mt-10 flex w-full items-center justify-center border-2 border-gray-900 bg-transparent py-3 px-8 text-base font-mono font-bold text-gray-900 hover:text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-2">Buy</button>
                     </form>
                 </div>
 
-                <div
-                    class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
+                <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
                     <!-- Description and details -->
                     <div>
                         <h3 class="sr-only">Description</h3>
